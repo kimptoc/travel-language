@@ -92,7 +92,14 @@
     KATAKANA.forEach(function (k) {
       var cell = document.createElement("div");
       cell.className = "kana-cell";
-      cell.innerHTML = '<span class="char">' + k.char + '</span><span class="romaji">' + k.romaji + '</span>';
+      var charSpan = document.createElement("span");
+      charSpan.className = "char";
+      charSpan.textContent = k.char;
+      var romajiSpan = document.createElement("span");
+      romajiSpan.className = "romaji";
+      romajiSpan.textContent = k.romaji;
+      cell.appendChild(charSpan);
+      cell.appendChild(romajiSpan);
       cell.addEventListener("click", function () { TravelLang.speak(k.char, "ja-JP"); });
       grid.appendChild(cell);
     });

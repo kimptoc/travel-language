@@ -39,15 +39,37 @@
   function renderVocabRows(tbody, list, lang) {
     list.forEach(function (item) {
       var tr = document.createElement("tr");
-      tr.innerHTML =
-        '<td class="jp">' + item.jp + "</td>" +
-        '<td class="romaji">' + item.romaji + "</td>" +
-        "<td>" + item.en + "</td>" +
-        '<td class="notes">' + (item.notes || "") + "</td>" +
-        '<td><button type="button" class="speak-btn">🔊</button></td>';
-      tr.querySelector(".speak-btn").addEventListener("click", function () {
+
+      var tdJp = document.createElement("td");
+      tdJp.className = "jp";
+      tdJp.textContent = item.jp;
+
+      var tdRomaji = document.createElement("td");
+      tdRomaji.className = "romaji";
+      tdRomaji.textContent = item.romaji;
+
+      var tdEn = document.createElement("td");
+      tdEn.textContent = item.en;
+
+      var tdNotes = document.createElement("td");
+      tdNotes.className = "notes";
+      tdNotes.textContent = item.notes || "";
+
+      var tdBtn = document.createElement("td");
+      var speakBtn = document.createElement("button");
+      speakBtn.type = "button";
+      speakBtn.className = "speak-btn";
+      speakBtn.textContent = "🔊";
+      speakBtn.addEventListener("click", function () {
         speak(item.jp, lang || "ja-JP");
       });
+      tdBtn.appendChild(speakBtn);
+
+      tr.appendChild(tdJp);
+      tr.appendChild(tdRomaji);
+      tr.appendChild(tdEn);
+      tr.appendChild(tdNotes);
+      tr.appendChild(tdBtn);
       tbody.appendChild(tr);
     });
   }
