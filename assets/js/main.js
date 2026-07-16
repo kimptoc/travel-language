@@ -33,16 +33,19 @@
   window.TravelLang = window.TravelLang || {};
   window.TravelLang.speak = speak;
 
-  // Renders a vocab table body from a list of { jp, romaji, en, notes } into
-  // a <tbody> element, wiring speak buttons directly (works for content
+  // Renders a vocab table body from a list of { <textKey>, romaji, en, notes }
+  // into a <tbody> element, wiring speak buttons directly (works for content
   // injected after DOMContentLoaded, unlike the static [data-speak] scan).
-  function renderVocabRows(tbody, list, lang) {
+  // textKey lets each course use its own field name for the target-language
+  // text (Japanese data uses "jp", Korean data uses "kr", etc).
+  function renderVocabRows(tbody, list, lang, textKey) {
+    var key = textKey || "jp";
     list.forEach(function (item) {
       var tr = document.createElement("tr");
 
       var tdJp = document.createElement("td");
-      tdJp.className = "jp";
-      tdJp.textContent = item.jp;
+      tdJp.className = "lang-text";
+      tdJp.textContent = item[key];
 
       var tdRomaji = document.createElement("td");
       tdRomaji.className = "romaji";
@@ -61,7 +64,7 @@
       speakBtn.className = "speak-btn";
       speakBtn.textContent = "🔊";
       speakBtn.addEventListener("click", function () {
-        speak(item.jp, lang || "ja-JP");
+        speak(item[key], lang || "ja-JP");
       });
       tdBtn.appendChild(speakBtn);
 

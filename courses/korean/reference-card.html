@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quick Reference Card — Daigo / Vegetarian Dining</title>
-  <meta name="description" content="Printable, phone-friendly quick reference card for vegetarian dining in Tokyo.">
+  <title>Quick Reference Card — Vegetarian Dining (Korean)</title>
+  <meta name="description" content="Printable, phone-friendly quick reference card for vegetarian dining in Korea.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
@@ -13,18 +13,18 @@
     <div class="header-inner">
       <a class="brand" href="../../index.html">🗺️ Travel Language Courses</a>
       <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-      <nav class="course-nav" aria-label="Japanese course navigation">
+      <nav class="course-nav" aria-label="Korean course navigation">
         <a href="index.html">Overview</a>
         <div class="week-links">
-          <a href="week1.html" data-week="japanese:week1">1</a>
-          <a href="week2.html" data-week="japanese:week2">2</a>
-          <a href="week3.html" data-week="japanese:week3">3</a>
-          <a href="week4.html" data-week="japanese:week4">4</a>
-          <a href="week5.html" data-week="japanese:week5">5</a>
-          <a href="week6.html" data-week="japanese:week6">6</a>
-          <a href="week7.html" data-week="japanese:week7">7</a>
-          <a href="week8.html" data-week="japanese:week8">8</a>
-          <a href="week9.html" data-week="japanese:week9">9</a>
+          <a href="week1.html" data-week="korean:week1">1</a>
+          <a href="week2.html" data-week="korean:week2">2</a>
+          <a href="week3.html" data-week="korean:week3">3</a>
+          <a href="week4.html" data-week="korean:week4">4</a>
+          <a href="week5.html" data-week="korean:week5">5</a>
+          <a href="week6.html" data-week="korean:week6">6</a>
+          <a href="week7.html" data-week="korean:week7">7</a>
+          <a href="week8.html" data-week="korean:week8">8</a>
+          <a href="week9.html" data-week="korean:week9">9</a>
         </div>
         <a href="reference-card.html" class="ref-link active">📇 Quick Reference</a>
       </nav>
@@ -33,7 +33,7 @@
 
   <main>
     <h1>📇 Quick-Reference Card</h1>
-    <p class="lede">For Daigo / vegetarian dining. Keep this on your phone (bookmark or add to your home screen) during the trip.</p>
+    <p class="lede">For vegetarian dining. Keep this on your phone (bookmark or add to your home screen) during the trip.</p>
 
     <div class="ref-card" id="ref-card"></div>
 
@@ -58,7 +58,7 @@
 
       var phraseDiv = document.createElement("div");
       phraseDiv.className = "phrase lang-text";
-      phraseDiv.textContent = item.jp;
+      phraseDiv.textContent = item.kr;
 
       var romajiDiv = document.createElement("div");
       romajiDiv.className = "romaji";
@@ -74,7 +74,7 @@
       speakBtn.style.marginTop = "0.5rem";
       speakBtn.textContent = "🔊 Listen";
       speakBtn.addEventListener("click", function () {
-        TravelLang.speak(item.jp, "ja-JP");
+        TravelLang.speak(item.kr, "ko-KR");
       });
 
       div.appendChild(phraseDiv);

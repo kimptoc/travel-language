@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 9: Consolidation &amp; Real-World Simulation — Korean Foundation</title>
+  <meta name="description" content="Re-run weeks 3-7 as flashcards and simulate real scenarios: ordering vegetarian food, checking into a hotel, directions, taxis.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html">🗺️ Travel Language Courses</a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="course-nav" aria-label="Korean course navigation">
+        <a href="index.html">Overview</a>
+        <div class="week-links">
+          <a href="week1.html" data-week="korean:week1">1</a>
+          <a href="week2.html" data-week="korean:week2">2</a>
+          <a href="week3.html" data-week="korean:week3">3</a>
+          <a href="week4.html" data-week="korean:week4">4</a>
+          <a href="week5.html" data-week="korean:week5">5</a>
+          <a href="week6.html" data-week="korean:week6">6</a>
+          <a href="week7.html" data-week="korean:week7">7</a>
+          <a href="week8.html" data-week="korean:week8">8</a>
+          <a href="week9.html" class="active" data-week="korean:week9">9</a>
+        </div>
+        <a href="reference-card.html" class="ref-link">📇 Quick Reference</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <span class="tag">Week 9 of 9 · Final week</span>
+    <h1>Consolidation &amp; Real-World Simulation</h1>
+    <p class="lede">Re-run weeks 3–7 as flashcards, then simulate the real situations you'll hit end-to-end.</p>
+
+    <h2>Full review deck (Weeks 3–7)</h2>
+    <p>Every courtesy, restaurant, hotel, and transport phrase from the course in one shuffled deck.</p>
+    <div id="review-deck"></div>
+
+    <h2>Simulate the real thing</h2>
+    <p>Talk out loud through each scenario end-to-end, as if it's actually happening. Don't skip ahead to notes — pause and try to recall first.</p>
+    <ul class="checklist" id="week9-simulation">
+      <li><input type="checkbox" data-id="order"><label><strong>Ordering a vegetarian meal:</strong> greet staff, explain you're vegetarian, ask what's in a dish, ask if it has fish sauce, order, and thank them after eating.</label></li>
+      <li><input type="checkbox" data-id="checkin"><label><strong>Checking into a hotel:</strong> greet, give your name/reservation, ask about wifi, and ask them to hold your luggage.</label></li>
+      <li><input type="checkbox" data-id="directions"><label><strong>Asking for directions:</strong> ask where the nearest station is, then ask for directions using right/left/straight.</label></li>
+      <li><input type="checkbox" data-id="taxi"><label><strong>Taking a taxi:</strong> ask staff to call a taxi, and confirm a price with 얼마예요?.</label></li>
+    </ul>
+    <div data-progress-for="week9-simulation">
+      <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="progress-label"></span>
+    </div>
+
+    <div class="callout milestone">
+      <h3>Optional: book a lesson</h3>
+      <p>Consider booking a 30-minute italki or Preply lesson focused purely on restaurant role-play to pressure-test everything above with a native speaker before you fly.</p>
+    </div>
+
+    <div class="callout priority">
+      <h3>You're ready. One last thing.</h3>
+      <p>Keep the <a href="reference-card.html">Quick Reference card</a> saved on your phone for the trip.</p>
+    </div>
+  </main>
+
+  <div class="week-pager">
+    <a class="btn secondary" href="week8.html">← Week 8: Small Talk &amp; Grammar</a>
+    <button class="btn secondary" data-week-complete="korean:week9"></button>
+    <a class="btn" href="reference-card.html">Open Quick Reference Card →</a>
+  </div>
+
+  <footer class="site-footer">
+    Progress is saved locally in your browser. <a href="../../index.html">← All courses</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/flashcards.js"></script>
+  <script>
+    var reviewVocab = [].concat(WEEK3_VOCAB, WEEK4_VOCAB, WEEK5_VOCAB, WEEK6_VOCAB, WEEK7_VOCAB);
+    TravelLang.initFlashcards({
+      containerId: "review-deck",
+      deckId: "korean:week9-review",
+      deck: vocabToDeck(reviewVocab),
+      shuffleDefault: true
+    });
+  </script>
+</body>
+</html>
