@@ -192,11 +192,123 @@
     });
   }
 
+  // Export / import progress: bundles every checklist/week/flashcard key this
+  // site writes to localStorage into a downloadable JSON file, and restores
+  // them from a previously exported file. Lets progress move between
+  // browsers/devices even though localStorage itself doesn't sync.
+  var PROGRESS_KEY_PREFIXES = ["checklist:", "progress:", "flashcards-known:"];
+
+  function isProgressKey(key) {
+    return PROGRESS_KEY_PREFIXES.some(function (prefix) {
+      return key.indexOf(prefix) === 0;
+    });
+  }
+
+  function collectProgressData() {
+    var data = {};
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      if (isProgressKey(key)) data[key] = localStorage.getItem(key);
+    }
+    return data;
+  }
+
+  function exportProgress() {
+    var payload = {
+      app: "travel-language",
+      exportedAt: new Date().toISOString(),
+      data: collectProgressData()
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "travel-language-progress-" + new Date().toISOString().slice(0, 10) + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function importProgress(file, onImported) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var parsed;
+      try {
+        parsed = JSON.parse(reader.result);
+      } catch (e) {
+        window.alert("That file isn't valid progress data (couldn't parse JSON).");
+        return;
+      }
+      var data = parsed && parsed.data;
+      if (!data || typeof data !== "object") {
+        window.alert("That file isn't valid progress data.");
+        return;
+      }
+      var keys = Object.keys(data).filter(isProgressKey);
+      if (!keys.length) {
+        window.alert("No recognised progress data found in that file.");
+        return;
+      }
+      var confirmed = window.confirm(
+        "Import " + keys.length + " saved item(s)? This will overwrite any matching progress already saved in this browser."
+      );
+      if (!confirmed) return;
+      keys.forEach(function (key) {
+        localStorage.setItem(key, data[key]);
+      });
+      onImported();
+    };
+    reader.readAsText(file);
+  }
+
+  function initProgressIO() {
+    document.querySelectorAll("footer.site-footer").forEach(function (footer) {
+      var wrap = document.createElement("div");
+      wrap.className = "progress-io";
+
+      var exportBtn = document.createElement("button");
+      exportBtn.type = "button";
+      exportBtn.className = "btn secondary";
+      exportBtn.textContent = "⬇ Export progress";
+      exportBtn.addEventListener("click", exportProgress);
+
+      var importBtn = document.createElement("button");
+      importBtn.type = "button";
+      importBtn.className = "btn secondary";
+      importBtn.textContent = "⬆ Import progress";
+
+      var fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "application/json,.json";
+      fileInput.style.display = "none";
+
+      importBtn.addEventListener("click", function () {
+        fileInput.click();
+      });
+      fileInput.addEventListener("change", function () {
+        var file = fileInput.files && fileInput.files[0];
+        fileInput.value = "";
+        if (!file) return;
+        importProgress(file, function () {
+          window.alert("Progress imported. Reloading page…");
+          window.location.reload();
+        });
+      });
+
+      wrap.appendChild(exportBtn);
+      wrap.appendChild(importBtn);
+      wrap.appendChild(fileInput);
+      footer.appendChild(wrap);
+    });
+  }
+
   onReady(function () {
     initNavToggle();
     initSpeakButtons();
     initChecklists();
     initWeekCompleteButtons();
     initWeekBadges();
+    initProgressIO();
   });
 })();
