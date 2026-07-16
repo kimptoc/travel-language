@@ -250,6 +250,13 @@
         window.alert("No recognised progress data found in that file.");
         return;
       }
+      var hasInvalidValue = keys.some(function (key) {
+        return typeof data[key] !== "string";
+      });
+      if (hasInvalidValue) {
+        window.alert("That file isn't valid progress data (expected text values).");
+        return;
+      }
       var confirmed = window.confirm(
         "Import " + keys.length + " saved item(s)? This will overwrite any matching progress already saved in this browser."
       );
