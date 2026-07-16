@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 4: Numbers, Time & Money — Tokyo Foundation Japanese</title>
+  <meta name="description" content="Numbers, telling time, and money phrases including reading yen prices out loud.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html">🗺️ Travel Language Courses</a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="course-nav" aria-label="Japanese course navigation">
+        <a href="index.html">Overview</a>
+        <div class="week-links">
+          <a href="week1.html" data-week="japanese:week1">1</a>
+          <a href="week2.html" data-week="japanese:week2">2</a>
+          <a href="week3.html" data-week="japanese:week3">3</a>
+          <a href="week4.html" class="active" data-week="japanese:week4">4</a>
+          <a href="week5.html" data-week="japanese:week5">5</a>
+          <a href="week6.html" data-week="japanese:week6">6</a>
+          <a href="week7.html" data-week="japanese:week7">7</a>
+          <a href="week8.html" data-week="japanese:week8">8</a>
+          <a href="week9.html" data-week="japanese:week9">9</a>
+        </div>
+        <a href="reference-card.html" class="ref-link">📇 Quick Reference</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <span class="tag">Week 4 of 9</span>
+    <h1>Numbers, Time &amp; Money</h1>
+    <p class="lede">Numbers 1–100 plus counters for people and time, asking/telling time, and the money phrases you'll use constantly.</p>
+
+    <h2>Vocabulary</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Japanese</th><th>Romaji</th><th>English</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="vocab-table"></tbody>
+    </table>
+
+    <h2>Flashcard deck</h2>
+    <div id="vocab-deck"></div>
+
+    <h2>Practice: reading yen prices out loud</h2>
+    <p>Click "New price" and try reading it aloud before pressing listen to check yourself.</p>
+    <div class="ref-card" id="yen-practice">
+      <div class="ref-card-item">
+        <div class="phrase" id="yen-jpy">¥1,000</div>
+        <div class="phrase jp" id="yen-jp">千円</div>
+        <div class="romaji" id="yen-romaji">sen en</div>
+      </div>
+      <div class="flashcard-toolbar">
+        <button type="button" class="primary" id="yen-new">🎲 New price</button>
+        <button type="button" class="speak-btn" id="yen-listen">🔊 Listen</button>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>Practice task</h3>
+      <ul class="checklist" id="week4-daily">
+        <li><input type="checkbox" data-id="numbers"><label>Count 1–100 out loud without notes</label></li>
+        <li><input type="checkbox" data-id="prices"><label>Read at least 8 yen prices out loud (use the practice tool above)</label></li>
+        <li><input type="checkbox" data-id="time"><label>Practice telling the current time in Japanese</label></li>
+      </ul>
+      <div data-progress-for="week4-daily">
+        <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+        <span class="progress-label"></span>
+      </div>
+    </div>
+  </main>
+
+  <div class="week-pager">
+    <a class="btn secondary" href="week3.html">← Week 3: Courtesy &amp; Core Phrases</a>
+    <button class="btn secondary" data-week-complete="japanese:week4"></button>
+    <a class="btn" href="week5.html">Week 5: Restaurants &amp; Dietary →</a>
+  </div>
+
+  <footer class="site-footer">
+    Progress is saved locally in your browser. <a href="../../index.html">← All courses</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/flashcards.js"></script>
+  <script>
+    TravelLang.renderVocabRows(document.getElementById("vocab-table"), WEEK4_VOCAB);
+    TravelLang.initFlashcards({
+      containerId: "vocab-deck",
+      deckId: "japanese:week4",
+      deck: vocabToDeck(WEEK4_VOCAB),
+      shuffleDefault: true
+    });
+
+    var yenJpy = document.getElementById("yen-jpy");
+    var yenJp = document.getElementById("yen-jp");
+    var yenRomaji = document.getElementById("yen-romaji");
+    var current = YEN_EXAMPLES[0];
+
+    function showRandomYen() {
+      current = YEN_EXAMPLES[Math.floor(Math.random() * YEN_EXAMPLES.length)];
+      yenJpy.textContent = current.jpy;
+      yenJp.textContent = current.jp;
+      yenRomaji.textContent = current.romaji;
+    }
+
+    document.getElementById("yen-new").addEventListener("click", showRandomYen);
+    document.getElementById("yen-listen").addEventListener("click", function () {
+      TravelLang.speak(current.jp, "ja-JP");
+    });
+    showRandomYen();
+  </script>
+</body>
+</html>

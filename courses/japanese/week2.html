@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 2: Katakana — Tokyo Foundation Japanese</title>
+  <meta name="description" content="Learn katakana, used for foreign loanwords on menus, hotel signage, and transit.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html">🗺️ Travel Language Courses</a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="course-nav" aria-label="Japanese course navigation">
+        <a href="index.html">Overview</a>
+        <div class="week-links">
+          <a href="week1.html" data-week="japanese:week1">1</a>
+          <a href="week2.html" class="active" data-week="japanese:week2">2</a>
+          <a href="week3.html" data-week="japanese:week3">3</a>
+          <a href="week4.html" data-week="japanese:week4">4</a>
+          <a href="week5.html" data-week="japanese:week5">5</a>
+          <a href="week6.html" data-week="japanese:week6">6</a>
+          <a href="week7.html" data-week="japanese:week7">7</a>
+          <a href="week8.html" data-week="japanese:week8">8</a>
+          <a href="week9.html" data-week="japanese:week9">9</a>
+        </div>
+        <a href="reference-card.html" class="ref-link">📇 Quick Reference</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <span class="tag">Week 2 of 9 · Reading Foundations</span>
+    <h1>Katakana</h1>
+    <p class="lede">
+      Katakana is used for foreign loanwords — useful since many menu and hotel terms are katakana,
+      e.g. メニュー (menu), ホテル (hotel), ロビー (lobby).
+    </p>
+
+    <div class="callout">
+      <h3>Daily practice (10 min)</h3>
+      <ul class="checklist" id="week2-daily">
+        <li><input type="checkbox" data-id="flashcards"><label>10 min with flashcards (below, or Anki)</label></li>
+        <li><input type="checkbox" data-id="write"><label>Write each new character 5x by hand</label></li>
+      </ul>
+      <div data-progress-for="week2-daily">
+        <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+        <span class="progress-label"></span>
+      </div>
+    </div>
+
+    <h2>All katakana (reference chart)</h2>
+    <p>Click a character to hear it spoken aloud.</p>
+    <div class="kana-grid" id="katakana-grid"></div>
+
+    <h2>Katakana deck</h2>
+    <div id="katakana-deck"></div>
+
+    <h2>Loanwords you'll actually see</h2>
+    <p>Common katakana words on Tokyo menus, hotel signage, and transit.</p>
+    <table class="vocab-table">
+      <thead><tr><th>Japanese</th><th>Romaji</th><th>English</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="katakana-words-table"></tbody>
+    </table>
+
+    <h2>Loanword deck</h2>
+    <div id="katakana-words-deck"></div>
+
+    <div class="callout milestone">
+      <h3>🎯 Milestone</h3>
+      <p>Read a Tokyo restaurant menu photo and sound out the words, even without understanding all of them.</p>
+    </div>
+  </main>
+
+  <div class="week-pager">
+    <a class="btn secondary" href="week1.html">← Week 1: Hiragana</a>
+    <button class="btn secondary" data-week-complete="japanese:week2"></button>
+    <a class="btn" href="week3.html">Week 3: Courtesy &amp; Core Phrases →</a>
+  </div>
+
+  <footer class="site-footer">
+    Progress is saved locally in your browser. <a href="../../index.html">← All courses</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/flashcards.js"></script>
+  <script>
+    var grid = document.getElementById("katakana-grid");
+    KATAKANA.forEach(function (k) {
+      var cell = document.createElement("div");
+      cell.className = "kana-cell";
+      cell.innerHTML = '<span class="char">' + k.char + '</span><span class="romaji">' + k.romaji + '</span>';
+      cell.addEventListener("click", function () { TravelLang.speak(k.char, "ja-JP"); });
+      grid.appendChild(cell);
+    });
+
+    TravelLang.renderVocabRows(document.getElementById("katakana-words-table"), KATAKANA_WORDS);
+
+    TravelLang.initFlashcards({
+      containerId: "katakana-deck",
+      deckId: "japanese:katakana",
+      deck: kanaToDeck(KATAKANA),
+      shuffleDefault: true
+    });
+
+    TravelLang.initFlashcards({
+      containerId: "katakana-words-deck",
+      deckId: "japanese:katakana-words",
+      deck: wordsToDeck(KATAKANA_WORDS),
+      shuffleDefault: true
+    });
+  </script>
+</body>
+</html>
