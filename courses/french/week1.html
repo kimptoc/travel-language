@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 1: Vowel Sounds &amp; Silent Letters — French Foundation</title>
+  <meta name="description" content="French nasal vowels (on, an, in, un) and silent final letters, with example words and an interactive flashcard deck.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html">🗺️ Travel Language Courses</a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="course-nav" aria-label="French course navigation">
+        <a href="index.html">Overview</a>
+        <div class="week-links">
+          <a href="week1.html" class="active" data-week="french:week1">1</a>
+          <a href="week2.html" data-week="french:week2">2</a>
+          <a href="week3.html" data-week="french:week3">3</a>
+          <a href="week4.html" data-week="french:week4">4</a>
+          <a href="week5.html" data-week="french:week5">5</a>
+          <a href="week6.html" data-week="french:week6">6</a>
+          <a href="week7.html" data-week="french:week7">7</a>
+          <a href="week8.html" data-week="french:week8">8</a>
+          <a href="week9.html" data-week="french:week9">9</a>
+        </div>
+        <a href="reference-card.html" class="ref-link">📇 Quick Reference</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <span class="tag">Week 1 of 9 · Reading Foundations</span>
+    <h1>Vowel Sounds &amp; Silent Letters</h1>
+    <p class="lede">
+      No new alphabet needed — French uses the Latin alphabet — but its spelling-to-sound rules are deceptive,
+      and this is where most self-taught learners go wrong. This week: nasal vowels and why final consonants
+      are usually silent.
+    </p>
+
+    <div class="callout">
+      <h3>Daily practice (10 min)</h3>
+      <ul class="checklist" id="week1-daily">
+        <li><input type="checkbox" data-id="shadow"><label>10 min shadowing a native speaker (YouTube/Forvo)</label></li>
+        <li><input type="checkbox" data-id="read-aloud"><label>Read street signs or a menu aloud</label></li>
+      </ul>
+      <div data-progress-for="week1-daily">
+        <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+        <span class="progress-label"></span>
+      </div>
+    </div>
+
+    <h2>Nasal vowel patterns</h2>
+    <p>Click a pattern to hear an example word spoken aloud.</p>
+    <div class="kana-grid" id="nasal-grid"></div>
+
+    <h2>Example words</h2>
+    <p>Each of these demonstrates a nasal vowel, a silent final letter, or both.</p>
+    <table class="vocab-table">
+      <thead><tr><th>French</th><th>Pronunciation</th><th>English</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="vocab-table"></tbody>
+    </table>
+
+    <h2>Flashcard deck</h2>
+    <div id="vocab-deck"></div>
+
+    <div class="callout milestone">
+      <h3>🎯 Milestone</h3>
+      <p>Read a Paris café menu out loud and pronounce it correctly, even without knowing every word.</p>
+    </div>
+  </main>
+
+  <div class="week-pager">
+    <a class="btn secondary" href="index.html">← Course overview</a>
+    <button class="btn secondary" data-week-complete="french:week1"></button>
+    <a class="btn" href="week2.html">Week 2: Liaison &amp; Rhythm →</a>
+  </div>
+
+  <footer class="site-footer">
+    Progress is saved locally in your browser. <a href="../../index.html">← All courses</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/flashcards.js"></script>
+  <script>
+    var nasalGrid = document.getElementById("nasal-grid");
+    NASAL_VOWEL_PATTERNS.forEach(function (p) {
+      var cell = document.createElement("div");
+      cell.className = "kana-cell";
+      var charSpan = document.createElement("span");
+      charSpan.className = "char";
+      charSpan.textContent = p.char;
+      var romajiSpan = document.createElement("span");
+      romajiSpan.className = "romaji";
+      romajiSpan.textContent = p.romaji;
+      cell.appendChild(charSpan);
+      cell.appendChild(romajiSpan);
+      cell.addEventListener("click", function () { TravelLang.speak(p.romaji.split(",")[0], "fr-FR"); });
+      nasalGrid.appendChild(cell);
+    });
+
+    TravelLang.renderVocabRows(document.getElementById("vocab-table"), WEEK1_VOCAB, "fr-FR", "fr");
+    TravelLang.initFlashcards({
+      containerId: "vocab-deck",
+      deckId: "french:week1",
+      deck: vocabToDeck(WEEK1_VOCAB),
+      shuffleDefault: true
+    });
+  </script>
+</body>
+</html>
