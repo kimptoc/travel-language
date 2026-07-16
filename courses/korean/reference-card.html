@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick Reference Card — Vegetarian Dining (Korean)</title>
+  <meta name="description" content="Printable, phone-friendly quick reference card for vegetarian dining in Korea.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html">🗺️ Travel Language Courses</a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="course-nav" aria-label="Korean course navigation">
+        <a href="index.html">Overview</a>
+        <div class="week-links">
+          <a href="week1.html" data-week="korean:week1">1</a>
+          <a href="week2.html" data-week="korean:week2">2</a>
+          <a href="week3.html" data-week="korean:week3">3</a>
+          <a href="week4.html" data-week="korean:week4">4</a>
+          <a href="week5.html" data-week="korean:week5">5</a>
+          <a href="week6.html" data-week="korean:week6">6</a>
+          <a href="week7.html" data-week="korean:week7">7</a>
+          <a href="week8.html" data-week="korean:week8">8</a>
+          <a href="week9.html" data-week="korean:week9">9</a>
+        </div>
+        <a href="reference-card.html" class="ref-link active">📇 Quick Reference</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>📇 Quick-Reference Card</h1>
+    <p class="lede">For vegetarian dining. Keep this on your phone (bookmark or add to your home screen) during the trip.</p>
+
+    <div class="ref-card" id="ref-card"></div>
+
+    <div class="flashcard-toolbar">
+      <button type="button" class="btn secondary" onclick="window.print()">🖨️ Print this card</button>
+    </div>
+
+    <p class="lede" style="font-size:0.9rem;">Note: the second line (eggs and dairy) is only accurate if that's true for you — edit or skip it if not.</p>
+  </main>
+
+  <footer class="site-footer">
+    Progress is saved locally in your browser. <a href="../../index.html">← All courses</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script>
+    var container = document.getElementById("ref-card");
+    REFERENCE_CARD.forEach(function (item) {
+      var div = document.createElement("div");
+      div.className = "ref-card-item";
+      div.innerHTML =
+        '<div class="phrase jp">' + item.kr + "</div>" +
+        '<div class="romaji">' + item.romaji + "</div>" +
+        '<div class="translation">' + item.en + (item.optional ? " (optional)" : "") + "</div>" +
+        '<button type="button" class="speak-btn" style="margin-top:0.5rem;">🔊 Listen</button>';
+      div.querySelector(".speak-btn").addEventListener("click", function () {
+        TravelLang.speak(item.kr, "ko-KR");
+      });
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
