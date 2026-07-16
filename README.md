@@ -2,6 +2,8 @@
 
 Practical, itinerary-driven language courses, hosted as a static site on GitHub Pages.
 
+**Live site:** https://kimptoc.github.io/travel-language/
+
 Courses so far:
 - **Tokyo Foundation** — a 9-week survival + courtesy Japanese course for a two-week Tokyo
   trip (see `courses/japanese/`).

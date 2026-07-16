@@ -55,14 +55,32 @@
     REFERENCE_CARD.forEach(function (item) {
       var div = document.createElement("div");
       div.className = "ref-card-item";
-      div.innerHTML =
-        '<div class="phrase jp">' + item.kr + "</div>" +
-        '<div class="romaji">' + item.romaji + "</div>" +
-        '<div class="translation">' + item.en + (item.optional ? " (optional)" : "") + "</div>" +
-        '<button type="button" class="speak-btn" style="margin-top:0.5rem;">🔊 Listen</button>';
-      div.querySelector(".speak-btn").addEventListener("click", function () {
+
+      var phraseDiv = document.createElement("div");
+      phraseDiv.className = "phrase jp";
+      phraseDiv.textContent = item.kr;
+
+      var romajiDiv = document.createElement("div");
+      romajiDiv.className = "romaji";
+      romajiDiv.textContent = item.romaji;
+
+      var translationDiv = document.createElement("div");
+      translationDiv.className = "translation";
+      translationDiv.textContent = item.en + (item.optional ? " (optional)" : "");
+
+      var speakBtn = document.createElement("button");
+      speakBtn.type = "button";
+      speakBtn.className = "speak-btn";
+      speakBtn.style.marginTop = "0.5rem";
+      speakBtn.textContent = "🔊 Listen";
+      speakBtn.addEventListener("click", function () {
         TravelLang.speak(item.kr, "ko-KR");
       });
+
+      div.appendChild(phraseDiv);
+      div.appendChild(romajiDiv);
+      div.appendChild(translationDiv);
+      div.appendChild(speakBtn);
       container.appendChild(div);
     });
   </script>
