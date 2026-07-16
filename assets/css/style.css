@@ -412,6 +412,18 @@ footer.site-footer {
   padding: 2rem 1.25rem 3rem;
 }
 
+.progress-io {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.progress-io .btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
 /* Reference card */
 .ref-card {
   background: var(--surface);
@@ -428,7 +440,7 @@ footer.site-footer {
 .ref-card-item:last-child { border-bottom: none; }
 
 @media print {
-  .site-header, .flashcard-toolbar, .week-pager, footer.site-footer, .speak-btn, .nav-toggle { display: none !important; }
+  .site-header, .flashcard-toolbar, .week-pager, footer.site-footer, .progress-io, .speak-btn, .nav-toggle { display: none !important; }
   body { background: #fff; }
   .ref-card { box-shadow: none; }
 }
