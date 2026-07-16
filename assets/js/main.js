@@ -44,7 +44,7 @@
       var tr = document.createElement("tr");
 
       var tdJp = document.createElement("td");
-      tdJp.className = "jp";
+      tdJp.className = "lang-text";
       tdJp.textContent = item[key];
 
       var tdRomaji = document.createElement("td");
