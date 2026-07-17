@@ -61,6 +61,7 @@
       '      <div class="flashcard-face front">' +
       '        <div class="main"></div>' +
       '        <div class="sub"></div>' +
+      '        <div class="hint"></div>' +
       '        <button type="button" class="speak-btn face-speak">🔊 Listen</button>' +
       "      </div>" +
       '      <div class="flashcard-face back">' +
@@ -81,6 +82,7 @@
     var card = container.querySelector(".flashcard");
     var frontMain = container.querySelector(".front .main");
     var frontSub = container.querySelector(".front .sub");
+    var frontHint = container.querySelector(".front .hint");
     var backMain = container.querySelector(".back .main");
     var backSub = container.querySelector(".back .sub");
     var faceSpeak = container.querySelector(".face-speak");
@@ -101,6 +103,7 @@
       card.classList.remove("flipped");
       frontMain.textContent = item.main;
       frontSub.textContent = item.sub || "";
+      frontHint.textContent = item.hint || "";
       backMain.textContent = item.back;
       backSub.textContent = item.backSub || "";
       faceSpeak.setAttribute("data-speak-text", item.speak || item.main);

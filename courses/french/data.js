@@ -12,7 +12,23 @@ var WEEK1_VOCAB = [
   { fr: "petit", romaji: "puh-tee", en: "small", notes: "final 't' silent" },
   { fr: "Paris", romaji: "pa-ree", en: "Paris", notes: "final 's' silent" },
   { fr: "nez", romaji: "nay", en: "nose", notes: "final 'z' sounds like 'ay', not 'z'" },
-  { fr: "grand", romaji: "grahn", en: "big / tall", notes: "final 'd' silent; nasal 'an'" }
+  { fr: "grand", romaji: "grahn", en: "big / tall", notes: "final 'd' silent; nasal 'an'" },
+  { fr: "pain", romaji: "pan", en: "bread", notes: "nasal 'ain'" },
+  { fr: "matin", romaji: "ma-tan", en: "morning", notes: "nasal 'in'" },
+  { fr: "jardin", romaji: "zhar-dan", en: "garden", notes: "nasal 'in'" },
+  { fr: "bien", romaji: "byan", en: "well / good", notes: "nasal 'ien'" },
+  { fr: "chien", romaji: "shyan", en: "dog", notes: "nasal 'ien'" },
+  { fr: "combien", romaji: "kohm-byan", en: "how much / how many", notes: "nasal 'ien'" },
+  { fr: "restaurant", romaji: "res-toh-rahn", en: "restaurant", notes: "nasal 'an'; final 't' silent" },
+  { fr: "croissant", romaji: "krwa-sahn", en: "croissant", notes: "nasal 'an'; final 't' silent" },
+  { fr: "garçon", romaji: "gar-sohn", en: "boy / waiter", notes: "nasal 'on'" },
+  { fr: "salon", romaji: "sa-lohn", en: "living room", notes: "nasal 'on'" },
+  { fr: "argent", romaji: "ar-zhahn", en: "money", notes: "nasal 'ar' + nasal 'ent'; final 't' silent" },
+  { fr: "content", romaji: "kohn-tahn", en: "happy", notes: "nasal 'on' + nasal 'ent'; final 't' silent" },
+  { fr: "temps", romaji: "tahn", en: "weather / time", notes: "nasal 'em'; final 'ps' silent" },
+  { fr: "gens", romaji: "zhahn", en: "people", notes: "nasal 'en'; final 's' silent" },
+  { fr: "français", romaji: "frahn-seh", en: "French", notes: "nasal 'an'; final 's' silent" },
+  { fr: "brun", romaji: "bruhn", en: "brown", notes: "nasal 'un'" }
 ];
 
 // Reference grid of the four nasal vowel spelling patterns
@@ -122,7 +138,7 @@ var WEEK8_VOCAB = [
 
 function vocabToDeck(list) {
   return list.map(function (v) {
-    return { main: v.fr, sub: v.romaji, back: v.en, backSub: v.notes || "", speak: v.fr, lang: "fr-FR" };
+    return { main: v.fr, sub: v.romaji, hint: v.en, back: v.en, backSub: v.notes || "", speak: v.fr, lang: "fr-FR" };
   });
 }
 
