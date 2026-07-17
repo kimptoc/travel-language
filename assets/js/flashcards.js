@@ -38,6 +38,29 @@
     localStorage.setItem(knownKey(deckId), JSON.stringify(list));
   }
 
+  function ratingKey(deckId) {
+    return "flashcards-rating:" + deckId;
+  }
+
+  function loadRatings(deckId) {
+    try {
+      return JSON.parse(localStorage.getItem(ratingKey(deckId)) || "{}");
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveRatings(deckId, ratings) {
+    localStorage.setItem(ratingKey(deckId), JSON.stringify(ratings));
+  }
+
+  var RATING_EMOJI = { 1: "😕", 2: "🙂", 3: "😄" };
+  var supportsRecording = !!(
+    navigator.mediaDevices &&
+    navigator.mediaDevices.getUserMedia &&
+    window.MediaRecorder
+  );
+
   function initFlashcards(opts) {
     var container = document.getElementById(opts.containerId);
     if (!container || !opts.deck || !opts.deck.length) return;
@@ -45,9 +68,17 @@
     var deckId = opts.deckId || opts.containerId;
     var order = opts.deck.map(function (_, i) { return i; });
     var known = loadKnown(deckId);
+    var ratings = loadRatings(deckId);
     var onlyUnknown = false;
     var idx = 0;
     var flipped = false;
+
+    var mediaRecorder = null;
+    var activeStream = null;
+    var audioChunks = [];
+    var isRecording = false;
+    var recordingUrl = null;
+    var recordingToken = 0;
 
     container.innerHTML =
       '<div class="flashcard-toolbar">' +
@@ -61,7 +92,18 @@
       '      <div class="flashcard-face front">' +
       '        <div class="main"></div>' +
       '        <div class="sub"></div>' +
-      '        <button type="button" class="speak-btn face-speak">🔊 Listen</button>' +
+      '        <div class="face-actions">' +
+      '          <button type="button" class="speak-btn face-speak">🔊 Listen</button>' +
+      '          <button type="button" class="speak-btn face-record" hidden>🎙️ Record yourself</button>' +
+      "        </div>" +
+      '        <audio class="face-playback" hidden controls></audio>' +
+      '        <div class="rate-row" hidden>' +
+      '          <span class="rate-label">How did that sound?</span>' +
+      '          <button type="button" class="rate-btn" data-rate="1" title="Needs work">😕</button>' +
+      '          <button type="button" class="rate-btn" data-rate="2" title="OK">🙂</button>' +
+      '          <button type="button" class="rate-btn" data-rate="3" title="Great">😄</button>' +
+      "        </div>" +
+      '        <div class="rate-last"></div>' +
       "      </div>" +
       '      <div class="flashcard-face back">' +
       '        <div class="main"></div>' +
@@ -84,12 +126,53 @@
     var backMain = container.querySelector(".back .main");
     var backSub = container.querySelector(".back .sub");
     var faceSpeak = container.querySelector(".face-speak");
+    var faceRecord = container.querySelector(".face-record");
+    var facePlayback = container.querySelector(".face-playback");
+    var rateRow = container.querySelector(".rate-row");
+    var rateLast = container.querySelector(".rate-last");
     var progressEl = container.querySelector(".flashcard-progress");
+
+    if (supportsRecording) faceRecord.hidden = false;
 
     function activeOrder() {
       if (!onlyUnknown) return order;
       var filtered = order.filter(function (i) { return known.indexOf(i) === -1; });
       return filtered.length ? filtered : order;
+    }
+
+    function currentRealIndex() {
+      var seq = activeOrder();
+      return seq[idx];
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && isRecording) mediaRecorder.stop();
+      if (activeStream) {
+        activeStream.getTracks().forEach(function (t) { t.stop(); });
+        activeStream = null;
+      }
+      isRecording = false;
+      mediaRecorder = null;
+    }
+
+    function resetRecordingUI() {
+      recordingToken++;
+      stopRecording();
+      audioChunks = [];
+      if (recordingUrl) {
+        URL.revokeObjectURL(recordingUrl);
+        recordingUrl = null;
+      }
+      facePlayback.hidden = true;
+      facePlayback.removeAttribute("src");
+      rateRow.hidden = true;
+      faceRecord.textContent = "🎙️ Record yourself";
+      faceRecord.classList.remove("recording");
+    }
+
+    function updateRateLast() {
+      var rating = ratings[currentRealIndex()];
+      rateLast.textContent = rating ? "Last self-rating: " + RATING_EMOJI[rating] : "";
     }
 
     function render() {
@@ -99,12 +182,14 @@
       var item = opts.deck[seq[idx]];
       flipped = false;
       card.classList.remove("flipped");
+      resetRecordingUI();
       frontMain.textContent = item.main;
       frontSub.textContent = item.sub || "";
       backMain.textContent = item.back;
       backSub.textContent = item.backSub || "";
       faceSpeak.setAttribute("data-speak-text", item.speak || item.main);
       faceSpeak.setAttribute("data-speak-lang", item.lang || "ja-JP");
+      updateRateLast();
       progressEl.textContent =
         (idx + 1) + " / " + seq.length +
         (onlyUnknown ? " (unknown only)" : "") +
@@ -142,6 +227,55 @@
       if (window.TravelLang.speak) {
         window.TravelLang.speak(faceSpeak.getAttribute("data-speak-text"), faceSpeak.getAttribute("data-speak-lang"));
       }
+    });
+
+    faceRecord.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (isRecording) {
+        stopRecording();
+        return;
+      }
+      var token = recordingToken;
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+        if (token !== recordingToken) {
+          stream.getTracks().forEach(function (t) { t.stop(); });
+          return;
+        }
+        activeStream = stream;
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.addEventListener("dataavailable", function (e2) {
+          if (e2.data && e2.data.size) audioChunks.push(e2.data);
+        });
+        mediaRecorder.addEventListener("stop", function () {
+          if (token !== recordingToken) return;
+          if (recordingUrl) URL.revokeObjectURL(recordingUrl);
+          var blob = new Blob(audioChunks, { type: "audio/webm" });
+          recordingUrl = URL.createObjectURL(blob);
+          facePlayback.src = recordingUrl;
+          facePlayback.hidden = false;
+          rateRow.hidden = false;
+          faceRecord.textContent = "🎙️ Record again";
+          faceRecord.classList.remove("recording");
+        });
+        mediaRecorder.start();
+        isRecording = true;
+        faceRecord.textContent = "⏹️ Stop recording";
+        faceRecord.classList.add("recording");
+      }).catch(function () {
+        if (token === recordingToken) {
+          rateLast.textContent = "Microphone unavailable — check browser permissions.";
+        }
+      });
+    });
+
+    rateRow.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest(".rate-btn") : null;
+      if (!btn) return;
+      e.stopPropagation();
+      ratings[currentRealIndex()] = Number(btn.getAttribute("data-rate"));
+      saveRatings(deckId, ratings);
+      updateRateLast();
     });
 
     container.querySelector('[data-act="prev"]').addEventListener("click", function () { go(-1); });
