@@ -100,9 +100,9 @@
       '        <audio class="face-playback" hidden controls></audio>' +
       '        <div class="rate-row" hidden>' +
       '          <span class="rate-label">How did that sound?</span>' +
-      '          <button type="button" class="rate-btn" data-rate="1" title="Needs work">😕</button>' +
-      '          <button type="button" class="rate-btn" data-rate="2" title="OK">🙂</button>' +
-      '          <button type="button" class="rate-btn" data-rate="3" title="Great">😄</button>' +
+      '          <button type="button" class="rate-btn" data-rate="1" title="Needs work" aria-label="Needs work">😕</button>' +
+      '          <button type="button" class="rate-btn" data-rate="2" title="OK" aria-label="OK">🙂</button>' +
+      '          <button type="button" class="rate-btn" data-rate="3" title="Great" aria-label="Great">😄</button>' +
       "        </div>" +
       '        <div class="rate-last"></div>' +
       "      </div>" +
@@ -205,8 +205,7 @@
     }
 
     function markKnown(isKnown) {
-      var seq = activeOrder();
-      var realIndex = seq[idx];
+      var realIndex = currentRealIndex();
       var pos = known.indexOf(realIndex);
       if (isKnown && pos === -1) known.push(realIndex);
       if (!isKnown && pos !== -1) known.splice(pos, 1);
@@ -246,14 +245,15 @@
         }
         activeStream = stream;
         audioChunks = [];
-        mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.addEventListener("dataavailable", function (e2) {
+        var recorder = new MediaRecorder(stream);
+        mediaRecorder = recorder;
+        recorder.addEventListener("dataavailable", function (e2) {
           if (e2.data && e2.data.size) audioChunks.push(e2.data);
         });
-        mediaRecorder.addEventListener("stop", function () {
+        recorder.addEventListener("stop", function () {
           if (token !== recordingToken) return;
           if (recordingUrl) URL.revokeObjectURL(recordingUrl);
-          var blob = new Blob(audioChunks, { type: "audio/webm" });
+          var blob = new Blob(audioChunks, { type: recorder.mimeType || "audio/webm" });
           recordingUrl = URL.createObjectURL(blob);
           facePlayback.src = recordingUrl;
           facePlayback.hidden = false;
@@ -261,14 +261,16 @@
           faceRecord.textContent = "🎙️ Record again";
           faceRecord.classList.remove("recording");
         });
-        mediaRecorder.start();
+        recorder.start();
         isRecording = true;
         faceRecord.textContent = "⏹️ Stop recording";
         faceRecord.classList.add("recording");
-      }).catch(function () {
-        if (token === recordingToken) {
-          rateLast.textContent = "Microphone unavailable — check browser permissions.";
-        }
+      }).catch(function (err) {
+        if (token !== recordingToken) return;
+        rateLast.textContent =
+          err && err.name === "NotAllowedError"
+            ? "Microphone permission denied — allow access in your browser settings to record."
+            : "Microphone unavailable on this device.";
       });
     });
 
