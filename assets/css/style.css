@@ -435,6 +435,7 @@ h3 { font-size: 1.05rem; }
 .draw-result { margin-top: 0.75rem; min-height: 1.6rem; }
 .draw-result p { margin: 0.4rem 0 0; font-size: 0.95rem; }
 .draw-result.good p { color: var(--success); }
+.draw-result.ok p { color: var(--text); }
 .draw-result.low p { color: var(--accent); }
 
 /* Buttons */
