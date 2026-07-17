@@ -365,6 +365,8 @@ h3 { font-size: 1.05rem; }
 }
 .flashcard-face .main { font-size: 2rem; }
 .flashcard-face .sub { color: var(--text-muted); font-size: 1rem; }
+.flashcard-face .hint { color: var(--text-muted); font-size: 0.9rem; font-style: italic; }
+.flashcard-face .hint:empty { display: none; }
 .flashcard-face.back { transform: rotateY(180deg); }
 
 .flashcard-progress {
