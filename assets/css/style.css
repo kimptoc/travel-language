@@ -379,6 +379,64 @@ h3 { font-size: 1.05rem; }
   padding: 2rem 1rem;
 }
 
+/* Draw & assess practice */
+.draw-practice { text-align: center; margin: 1rem 0; }
+.draw-target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+.draw-target-char { font-size: 2rem; }
+.draw-target-romaji { color: var(--text-muted); }
+
+.draw-canvas-wrap {
+  position: relative;
+  width: 260px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.draw-guide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: min(180px, 65vw);
+  color: var(--text-muted);
+  opacity: 0.28;
+  pointer-events: none;
+  user-select: none;
+}
+.draw-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+.draw-guide-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  cursor: pointer;
+}
+
+.draw-result { margin-top: 0.75rem; min-height: 1.6rem; }
+.draw-result p { margin: 0.4rem 0 0; font-size: 0.95rem; }
+.draw-result.good p { color: var(--success); }
+.draw-result.low p { color: var(--accent); }
+
 /* Buttons */
 .btn {
   display: inline-block;
