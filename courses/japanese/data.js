@@ -58,7 +58,7 @@ var KATAKANA_WORDS = [
 
 function kanaToDeck(list) {
   return list.map(function (k) {
-    return { main: k.char, sub: "", back: k.romaji, backSub: "", speak: k.char, lang: "ja-JP" };
+    return { main: k.char, sub: k.romaji, back: k.romaji, backSub: "", speak: k.char, lang: "ja-JP" };
   });
 }
 

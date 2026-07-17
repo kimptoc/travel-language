@@ -369,6 +369,23 @@ h3 { font-size: 1.05rem; }
 .flashcard-face .hint:empty { display: none; }
 .flashcard-face.back { transform: rotateY(180deg); }
 
+.face-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.face-record.recording { background: #d64545; border-color: #d64545; color: #fff; }
+.face-playback { width: 100%; max-width: 260px; height: 32px; }
+.rate-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; justify-content: center; }
+.rate-row[hidden] { display: none; }
+.rate-label { color: var(--text-muted); font-size: 0.85rem; }
+.rate-btn {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  font-size: 1.1rem;
+}
+.rate-btn:hover { border-color: var(--accent); }
+.rate-last { color: var(--text-muted); font-size: 0.82rem; min-height: 1.1em; }
+
 .flashcard-progress {
   text-align: center;
   color: var(--text-muted);
