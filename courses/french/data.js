@@ -28,7 +28,21 @@ var WEEK1_VOCAB = [
   { fr: "temps", romaji: "tahn", en: "weather / time", notes: "nasal 'em'; final 'ps' silent" },
   { fr: "gens", romaji: "zhahn", en: "people", notes: "nasal 'en'; final 's' silent" },
   { fr: "français", romaji: "frahn-seh", en: "French", notes: "nasal 'an'; final 's' silent" },
-  { fr: "brun", romaji: "bruhn", en: "brown", notes: "nasal 'un'" }
+  { fr: "brun", romaji: "bruhn", en: "brown", notes: "nasal 'un'" },
+  { fr: "non", romaji: "nohn", en: "no", notes: "nasal 'on'" },
+  { fr: "long", romaji: "lohn", en: "long", notes: "nasal 'on'; final 'g' silent" },
+  { fr: "blanc", romaji: "blahn", en: "white", notes: "nasal 'an'; final 'c' silent" },
+  { fr: "sang", romaji: "sahn", en: "blood", notes: "nasal 'an'; final 'g' silent" },
+  { fr: "dent", romaji: "dahn", en: "tooth", notes: "nasal 'en'; final 't' silent" },
+  { fr: "parents", romaji: "pa-rahn", en: "parents", notes: "nasal 'en'; final 'ts' silent" },
+  { fr: "faim", romaji: "fam", en: "hunger", notes: "nasal 'aim'" },
+  { fr: "simple", romaji: "sanpl", en: "simple", notes: "nasal 'im'" },
+  { fr: "dessin", romaji: "deh-san", en: "drawing", notes: "nasal 'in'" },
+  { fr: "lundi", romaji: "luhn-dee", en: "Monday", notes: "nasal 'un'" },
+  { fr: "printemps", romaji: "pran-tahn", en: "spring", notes: "nasal 'in' + nasal 'em'; final 's' silent" },
+  { fr: "prix", romaji: "pree", en: "price", notes: "final 'x' silent" },
+  { fr: "riz", romaji: "ree", en: "rice", notes: "final 'z' silent" },
+  { fr: "tard", romaji: "tar", en: "late", notes: "final 'd' silent" }
 ];
 
 // Reference grid of the four nasal vowel spelling patterns
@@ -46,7 +60,13 @@ var WEEK2_VOCAB = [
   { fr: "un grand homme", romaji: "un grahn-tom", en: "a great man", notes: "liaison: d → t sound" },
   { fr: "ils ont", romaji: "eel-zohn", en: "they have", notes: "liaison: s → z sound" },
   { fr: "nous avons", romaji: "noo-zah-vohn", en: "we have", notes: "liaison: s → z sound" },
-  { fr: "c'est incroyable", romaji: "seh-tan-krwa-yabl", en: "that's incredible", notes: "liaison: t sound links the words" }
+  { fr: "c'est incroyable", romaji: "seh-tan-krwa-yabl", en: "that's incredible", notes: "liaison: t sound links the words" },
+  { fr: "les enfants", romaji: "lay-zahn-fahn", en: "the children", notes: "liaison: s → z sound" },
+  { fr: "mon ami", romaji: "moh-na-mee", en: "my friend", notes: "liaison: n sound links the words" },
+  { fr: "deux heures", romaji: "duh-zur", en: "two o'clock", notes: "liaison: x → z sound" },
+  { fr: "dix ans", romaji: "dee-zahn", en: "ten years", notes: "liaison: x → z sound" },
+  { fr: "grand arbre", romaji: "grahn-tarbr", en: "big tree", notes: "liaison: d → t sound" },
+  { fr: "petit à petit", romaji: "puh-tee-ta-puh-tee", en: "little by little", notes: "liaison: t sound links the words" }
 ];
 
 var WEEK3_VOCAB = [
