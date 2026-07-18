@@ -2,33 +2,33 @@
    Plain JS globals (not fetched JSON) so pages work over file:// too. */
 
 var HANGUL_CONSONANTS = [
-  { char: "ㄱ", romaji: "g/k", name: "giyeok" },
-  { char: "ㄴ", romaji: "n", name: "nieun" },
-  { char: "ㄷ", romaji: "d/t", name: "digeut" },
-  { char: "ㄹ", romaji: "r/l", name: "rieul" },
-  { char: "ㅁ", romaji: "m", name: "mieum" },
-  { char: "ㅂ", romaji: "b/p", name: "bieup" },
-  { char: "ㅅ", romaji: "s", name: "siot" },
-  { char: "ㅇ", romaji: "silent / ng", name: "ieung" },
-  { char: "ㅈ", romaji: "j", name: "jieut" },
-  { char: "ㅊ", romaji: "ch", name: "chieut" },
-  { char: "ㅋ", romaji: "k", name: "kieuk" },
-  { char: "ㅌ", romaji: "t", name: "tieut" },
-  { char: "ㅍ", romaji: "p", name: "pieup" },
-  { char: "ㅎ", romaji: "h", name: "hieut" }
+  { char: "ㄱ", romaji: "g/k", name: "giyeok", hint: "Traces the tongue arching up to touch the back of the mouth for g/k" },
+  { char: "ㄴ", romaji: "n", name: "nieun", hint: "Traces the tongue tip touching behind the front teeth for n" },
+  { char: "ㄷ", romaji: "d/t", name: "digeut", hint: "A tongue pressed flat behind the teeth, boxed in for d/t" },
+  { char: "ㄹ", romaji: "r/l", name: "rieul", hint: "A zigzagging tongue flick, rolling for r/l" },
+  { char: "ㅁ", romaji: "m", name: "mieum", hint: "A square mouth shape, lips closed and humming: m" },
+  { char: "ㅂ", romaji: "b/p", name: "bieup", hint: "Lips opening from a closed mouth shape, popping for b/p" },
+  { char: "ㅅ", romaji: "s", name: "siot", hint: "A pointed tooth shape, hissing air through for s" },
+  { char: "ㅇ", romaji: "silent / ng", name: "ieung", hint: "A round open throat: silent alone, or a hum for ng" },
+  { char: "ㅈ", romaji: "j", name: "jieut", hint: "A tooth shape (ㅅ) plus a flick on top for a soft j" },
+  { char: "ㅊ", romaji: "ch", name: "chieut", hint: "A ㅈ with an extra stroke, puffing more air for ch" },
+  { char: "ㅋ", romaji: "k", name: "kieuk", hint: "A ㄱ with an extra stroke, puffing air for a sharp k" },
+  { char: "ㅌ", romaji: "t", name: "tieut", hint: "A ㄷ with an extra stroke, puffing air for a sharp t" },
+  { char: "ㅍ", romaji: "p", name: "pieup", hint: "A ㅂ opened wider, lips popping hard for p" },
+  { char: "ㅎ", romaji: "h", name: "hieut", hint: "A circle with a hat, breath rising up and out for h" }
 ];
 
 var HANGUL_VOWELS = [
-  { char: "ㅏ", romaji: "a", name: "a" },
-  { char: "ㅑ", romaji: "ya", name: "ya" },
-  { char: "ㅓ", romaji: "eo", name: "eo" },
-  { char: "ㅕ", romaji: "yeo", name: "yeo" },
-  { char: "ㅗ", romaji: "o", name: "o" },
-  { char: "ㅛ", romaji: "yo", name: "yo" },
-  { char: "ㅜ", romaji: "u", name: "u" },
-  { char: "ㅠ", romaji: "yu", name: "yu" },
-  { char: "ㅡ", romaji: "eu", name: "eu" },
-  { char: "ㅣ", romaji: "i", name: "i" }
+  { char: "ㅏ", romaji: "a", name: "a", hint: "A vertical line with a dot to the right, light shining out: a" },
+  { char: "ㅑ", romaji: "ya", name: "ya", hint: "Like ㅏ but with two strokes, adding a y-glide: ya" },
+  { char: "ㅓ", romaji: "eo", name: "eo", hint: "A vertical line with a dot to the left, facing inward: eo" },
+  { char: "ㅕ", romaji: "yeo", name: "yeo", hint: "Like ㅓ with two strokes, adding a y-glide: yeo" },
+  { char: "ㅗ", romaji: "o", name: "o", hint: "A horizontal line with a dot rising above it, like the sun: o" },
+  { char: "ㅛ", romaji: "yo", name: "yo", hint: "Like ㅗ with two strokes rising, adding a y-glide: yo" },
+  { char: "ㅜ", romaji: "u", name: "u", hint: "A horizontal line with a dot hanging below, like a drop: u" },
+  { char: "ㅠ", romaji: "yu", name: "yu", hint: "Like ㅜ with two strokes hanging, adding a y-glide: yu" },
+  { char: "ㅡ", romaji: "eu", name: "eu", hint: "A single flat horizontal line, like the flat earth: eu" },
+  { char: "ㅣ", romaji: "i", name: "i", hint: "A single straight vertical line, like a standing person: i" }
 ];
 
 var HANGUL_DOUBLE_CONSONANTS = [
@@ -60,7 +60,7 @@ var BATCHIM_WORDS = [
 
 function hangulToDeck(list) {
   return list.map(function (k) {
-    return { main: k.char, sub: k.name || "", back: k.romaji, backSub: "", speak: k.char, lang: "ko-KR" };
+    return { main: k.char, sub: k.name || "", back: k.romaji, backSub: "", speak: k.char, lang: "ko-KR", hint: k.hint || "" };
   });
 }
 
